@@ -1,9 +1,16 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:jap_magic/pages/CatalogPage.dart';
 import 'package:jap_magic/pages/PromoPage.dart';
 
 class MainPage extends StatelessWidget {
-  final tabs = <Widget>[PromoPage()];
+  final tabs = <Widget>[
+    CatalogPage(),
+    PromoPage(),
+    PromoPage(),
+    PromoPage(),
+    PromoPage(),
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +30,7 @@ class MainPage extends StatelessWidget {
       tabBuilder: (BuildContext context, int index) {
         return CupertinoTabView(
           builder: (BuildContext context) {
-            return tabs[0];
+            return tabs[index];
             // return CupertinoPageScaffold(
             //   navigationBar: CupertinoNavigationBar(
             //     middle: Text('JAPMAGIC'),
