@@ -50,6 +50,7 @@ class PromoPage extends StatelessWidget {
         itemBuilder: (context, index) {
           return Center(
             child: ListView(
+              physics: const NeverScrollableScrollPhysics(),
               shrinkWrap: true,
               children: [
                 banners[index],
