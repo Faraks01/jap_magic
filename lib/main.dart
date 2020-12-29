@@ -4,6 +4,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:jap_magic/pages/MainPage.dart';
 import 'package:jap_magic/providers/BrandsProvider.dart';
 import 'package:jap_magic/providers/CategoriesProvider.dart';
+import 'package:jap_magic/providers/FavoriteProductsProvider.dart';
 import 'package:jap_magic/providers/ProductLinesProvider.dart';
 import 'package:jap_magic/providers/ProductsProvider.dart';
 import 'package:jap_magic/providers/SubcategoriesProvider.dart';
@@ -32,6 +33,9 @@ class MyApp extends StatelessWidget {
         ),
         ChangeNotifierProvider<SubcategoriesProvider>(
           create: (_) => SubcategoriesProvider(),
+        ),
+        ChangeNotifierProvider<FavoriteProductsProvider>(
+          create: (_) => FavoriteProductsProvider(),
         ),
       ],
       child: CupertinoApp(
