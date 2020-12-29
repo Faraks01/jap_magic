@@ -28,6 +28,10 @@ class Product extends BaseModel {
     this.subcategories,
   });
 
+  get intPrice {
+    return double.parse(price).toInt();
+  }
+
   factory Product.fromJson(Map<String, dynamic> json) =>
       _$ProductFromJson(json);
 
