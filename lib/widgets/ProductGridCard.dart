@@ -39,7 +39,7 @@ class ProductGridCard extends StatelessWidget {
                     Hero(
                       tag: 'product_picture_${product.id}',
                       child: Image.network(
-                        product.img,
+                        product.image,
                         fit: BoxFit.cover,
                       ),
                     ),
