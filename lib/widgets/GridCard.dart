@@ -31,7 +31,7 @@ class GridCard extends StatelessWidget {
                   tag: heroTag,
                   child: Image.network(
                     imageSrc,
-                    fit: BoxFit.cover,
+                    fit: BoxFit.contain,
                   ),
                 ),
               )),

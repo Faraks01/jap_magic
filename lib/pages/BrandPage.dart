@@ -38,7 +38,7 @@ class BrandPage extends StatelessWidget {
             child: Image.network(
               brand.image,
               height: 200,
-              fit: BoxFit.cover,
+              fit: BoxFit.contain,
             ),
           )
         ],
