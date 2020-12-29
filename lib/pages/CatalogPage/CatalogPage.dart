@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:jap_magic/pages/CatalogPage/BrandsList.dart';
+import 'package:jap_magic/pages/CatalogPage/CategoriesList.dart';
 import 'package:jap_magic/themes.dart';
 
 class CatalogPage extends StatefulWidget {
@@ -57,8 +59,8 @@ class _CatalogPageState extends State<CatalogPage> {
               onPageChanged: updateCurrentPage,
               controller: _pageController,
               children: [
-                Placeholder(),
-                Placeholder(),
+                CategoriesList(),
+                BrandsList(),
               ],
             ),
           ),
