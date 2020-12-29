@@ -7,14 +7,12 @@ part 'Brand.g.dart';
 class Brand extends BaseModel {
   // @JsonKey(name: 'example_field')
   final int id;
-  final String img;
   final String name;
   final String description;
   final String image;
 
   Brand({
     this.id,
-    this.img,
     this.name,
     this.description,
     this.image,

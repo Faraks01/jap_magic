@@ -7,9 +7,9 @@ part 'Product.g.dart';
 class Product extends BaseModel {
   // @JsonKey(name: 'example_field')
   final int id;
-  final String img;
   final List<String> tag;
   final String name;
+  final String image;
   final String description;
   final String barcode;
   final String price;
@@ -18,9 +18,9 @@ class Product extends BaseModel {
 
   Product({
     this.id,
-    this.img,
     this.tag,
     this.name,
+    this.image,
     this.description,
     this.barcode,
     this.price,

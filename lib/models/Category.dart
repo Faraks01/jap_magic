@@ -7,14 +7,12 @@ part 'Category.g.dart';
 @JsonSerializable(includeIfNull: true)
 class Category extends BaseModel {
   final int id;
-  final String img;
   final String name;
   final String image;
   final String description;
 
   Category({
     this.id,
-    this.img,
     this.name,
     this.image,
     this.description,
