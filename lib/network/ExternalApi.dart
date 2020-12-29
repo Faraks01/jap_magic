@@ -10,7 +10,11 @@ class OrderingFilters {
 }
 
 class ViewSets {
-  // static const String checkLoggedIn = '/users/auth/get';
+  static const brands = '/brands';
+  static const categories = '/categories';
+  static const productLines = '/lines';
+  static const products = '/products';
+  static const subcategories = '/subcategories';
 }
 
 enum AllowedRequestMethods { get, patch, delete, post }
