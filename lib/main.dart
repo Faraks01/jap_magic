@@ -1,7 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:jap_magic/pages/BrandPage.dart';
 import 'package:jap_magic/pages/MainPage.dart';
+import 'package:jap_magic/pages/StartPage.dart';
 import 'package:jap_magic/providers/BrandsProvider.dart';
 import 'package:jap_magic/providers/CategoriesProvider.dart';
 import 'package:jap_magic/providers/FavoriteProductsProvider.dart';
@@ -47,17 +49,31 @@ class MyApp extends StatelessWidget {
         ],
         theme: CupertinoThemeData(
             textTheme: const CupertinoTextThemeData(
-              navTitleTextStyle: TextStyle(
-                  color: Colors.white,
+                navTitleTextStyle: TextStyle(
+                    color: Colors.white,
+                    fontFamily: 'OpenSans',
+                    fontSize: 18,
+                    letterSpacing: 3,
+                    fontWeight: FontWeight.w700),
+                textStyle: TextStyle(
                   fontFamily: 'OpenSans',
-                  fontSize: 18,
-                  letterSpacing: 3,
-                  fontWeight: FontWeight.w700),
-            ),
+                )),
             primaryColor: Colors.pink[400],
             barBackgroundColor: Colors.black,
             scaffoldBackgroundColor: Colors.grey[200]),
-        home: MainPage(),
+        home: StartPage(),
+        routes: {
+          MainPage.routeName: (_) => MainPage(),
+          BrandPage.routeName: (ctx) {
+            final BrandPageRouteArguments routeParams =
+                ModalRoute.of(ctx).settings.arguments;
+
+            final brandsProvider =
+                Provider.of<BrandsProvider>(ctx, listen: false);
+
+            return BrandPage(brand: brandsProvider.map[routeParams.id]);
+          }
+        },
       ),
     );
   }

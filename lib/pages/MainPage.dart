@@ -1,9 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:jap_magic/pages/CatalogPage.dart';
+import 'package:jap_magic/pages/CatalogPage/CatalogPage.dart';
 import 'package:jap_magic/pages/PromoPage.dart';
 
 class MainPage extends StatelessWidget {
+  static const routeName = '/main-page';
+
   final tabs = <Widget>[
     CatalogPage(),
     PromoPage(),
@@ -31,37 +33,6 @@ class MainPage extends StatelessWidget {
         return CupertinoTabView(
           builder: (BuildContext context) {
             return tabs[index];
-            // return CupertinoPageScaffold(
-            //   navigationBar: CupertinoNavigationBar(
-            //     middle: Text('JAPMAGIC'),
-            //   ),
-            //   child: Center(
-            //     child: CupertinoButton(
-            //       child: const Text('Next page'),
-            //       onPressed: () {
-            //         Navigator.of(context).push(
-            //           CupertinoPageRoute<void>(
-            //             builder: (BuildContext context) {
-            //               return CupertinoPageScaffold(
-            //                 navigationBar: CupertinoNavigationBar(
-            //                   middle: Text('Page 2 of tab $index'),
-            //                 ),
-            //                 child: Center(
-            //                   child: CupertinoButton(
-            //                     child: const Text('Back'),
-            //                     onPressed: () {
-            //                       Navigator.of(context).pop();
-            //                     },
-            //                   ),
-            //                 ),
-            //               );
-            //             },
-            //           ),
-            //         );
-            //       },
-            //     ),
-            //   ),
-            // );
           },
         );
       },
