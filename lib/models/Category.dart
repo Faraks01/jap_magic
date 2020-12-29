@@ -11,10 +11,14 @@ class Category extends BaseModel {
   final String image;
   final String description;
 
+  @JsonKey(name: 'short_image')
+  final String shortImage;
+
   Category({
     this.id,
     this.name,
     this.image,
+    this.shortImage,
     this.description,
   });
 
