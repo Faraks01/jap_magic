@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'package:jap_magic/models/interfaces/BaseModel.dart';
@@ -6,6 +7,7 @@ import 'package:jap_magic/providers/BaseProvider.dart';
 
 class StoreList<T extends BaseProvider, T1 extends BaseModel>
     extends StatelessWidget {
+  final SliverAppBar appBar;
   final List<Widget> headerWidgets;
   final Widget Function(T1 item, Key key) renderListItem;
   final T1 Function(dynamic json) modelJsonConstructor;
@@ -18,6 +20,7 @@ class StoreList<T extends BaseProvider, T1 extends BaseModel>
 
   StoreList({
     Key key,
+    this.appBar,
     this.headerWidgets,
     this.itemAspectRatio = 1.0,
     @required this.renderListItem,
@@ -60,6 +63,7 @@ class StoreList<T extends BaseProvider, T1 extends BaseModel>
           controller: _controller,
           shrinkWrap: true,
           slivers: [
+            if (appBar != null) appBar,
             if (headerWidgets != null)
               SliverList(
                 delegate: SliverChildListDelegate(headerWidgets),
