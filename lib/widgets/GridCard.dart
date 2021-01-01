@@ -7,9 +7,15 @@ class GridCard extends StatelessWidget {
   final String imageSrc;
   final String title;
   final VoidCallback onPressed;
+  final BoxFit imageFit;
 
   const GridCard(
-      {Key key, this.heroTag, this.imageSrc, this.title, this.onPressed})
+      {Key key,
+      this.heroTag,
+      this.imageSrc,
+      this.title,
+      this.onPressed,
+      this.imageFit = BoxFit.contain})
       : super(key: key);
 
   @override
@@ -31,7 +37,7 @@ class GridCard extends StatelessWidget {
                   tag: heroTag,
                   child: Image.network(
                     imageSrc,
-                    fit: BoxFit.contain,
+                    fit: imageFit,
                   ),
                 ),
               )),
