@@ -3,10 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:jap_magic/models/Brand.dart';
 import 'package:jap_magic/models/Category.dart';
+import 'package:jap_magic/models/Subcategory.dart';
 import 'package:jap_magic/pages/MainPage.dart';
 import 'package:jap_magic/providers/BrandsProvider.dart';
 import 'package:jap_magic/providers/CategoriesProvider.dart';
 import 'package:jap_magic/providers/FavoriteProductsProvider.dart';
+import 'package:jap_magic/providers/SubcategoriesProvider.dart';
 import 'package:provider/provider.dart';
 
 class StartPage extends StatefulWidget {
@@ -38,6 +40,8 @@ class _StartPageState extends State<StartPage>
   @override
   Widget build(BuildContext context) {
     final brandsProvider = Provider.of<BrandsProvider>(context, listen: false);
+    final subcategoriesProvider =
+        Provider.of<SubcategoriesProvider>(context, listen: false);
     final categoriesProvider =
         Provider.of<CategoriesProvider>(context, listen: false);
     final favoriteProductsProvider =
@@ -57,6 +61,12 @@ class _StartPageState extends State<StartPage>
             triggerLoading: false,
             listApi: categoriesProvider.fetchApi.makeRequest,
             modelJsonConstructor: (json) => Category.fromJson(json)),
+        subcategoriesProvider.fetchList(
+            queryParams: {'limit': '1000'},
+            offset: 0,
+            triggerLoading: false,
+            listApi: subcategoriesProvider.fetchApi.makeRequest,
+            modelJsonConstructor: (json) => Subcategory.fromJson(json)),
         favoriteProductsProvider.getKeysFromDeviceStorage()
       ]),
       builder: (context, snapshot) {
