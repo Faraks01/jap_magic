@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:jap_magic/pages/BrandPage.dart';
+import 'package:jap_magic/pages/CategoryPage.dart';
 import 'package:jap_magic/pages/MainPage.dart';
 import 'package:jap_magic/pages/StartPage.dart';
 import 'package:jap_magic/providers/BrandsProvider.dart';
@@ -72,6 +73,15 @@ class MyApp extends StatelessWidget {
                 Provider.of<BrandsProvider>(ctx, listen: false);
 
             return BrandPage(brand: brandsProvider.map[routeParams.id]);
+          },
+          CategoryPage.routeName: (ctx) {
+            final CategoryPageRouteArguments routeParams =
+                ModalRoute.of(ctx).settings.arguments;
+
+            final categoriesProvider =
+            Provider.of<CategoriesProvider>(ctx, listen: false);
+
+            return CategoryPage(category: categoriesProvider.map[routeParams.id]);
           }
         },
       ),
