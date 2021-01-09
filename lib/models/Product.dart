@@ -19,7 +19,7 @@ class Product extends BaseModel {
   final String image;
 
   @JsonKey(name: 'description_title')
-  final double descriptionTitle;
+  final String descriptionTitle;
 
   final String description;
   final String barcode;

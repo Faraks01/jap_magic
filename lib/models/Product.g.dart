@@ -14,7 +14,7 @@ Product _$ProductFromJson(Map<String, dynamic> json) {
     amountOfFeedbacks: (json['amount_of_feedbacks'] as num)?.toDouble(),
     name: json['name'] as String,
     image: json['image'] as String,
-    descriptionTitle: (json['description_title'] as num)?.toDouble(),
+    descriptionTitle: json['description_title'] as String,
     description: json['description'] as String,
     barcode: json['barcode'] as String,
     price: json['price'] as String,
