@@ -41,6 +41,7 @@ dependencies:
   firebase_messaging: any
   url_launcher: any
   flutter_swiper: ^1.1.6
+  youtube_player_flutter: ^7.0.0+7
 #  flutter_local_notifications: 2.0.1+1
 
 
@@ -63,7 +64,7 @@ flutter:
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
   # the material Icons class.
-  uses-material-design: false
+  uses-material-design: true
 
   # To add assets to your application, add an assets section, like this:
   assets:
