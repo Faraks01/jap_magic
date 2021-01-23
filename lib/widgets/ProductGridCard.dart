@@ -1,7 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:jap_magic/models/Product.dart';
+import 'package:jap_magic/pages/ProductPage.dart';
 import 'package:jap_magic/providers/BrandsProvider.dart';
+import 'package:jap_magic/providers/OrderProvider.dart';
 import 'package:jap_magic/themes.dart';
 import 'package:jap_magic/widgets/ProductFavoriteButton.dart';
 import 'package:provider/provider.dart';
@@ -16,12 +18,18 @@ class ProductGridCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final orderPvd = Provider.of<OrderProvider>(context, listen: false);
+
     final brandName = Provider.of<BrandsProvider>(context, listen: false)
         .map[product.brand]
         .name;
 
     return CupertinoButton(
-      onPressed: () {},
+      onPressed: () {
+        Navigator.of(context, rootNavigator: true).pushNamed(
+            ProductPage.routeName,
+            arguments: ProductPageRouteArguments(id: product.id));
+      },
       padding: EdgeInsets.zero,
       child: Card(
         elevation: 2,
@@ -36,12 +44,9 @@ class ProductGridCard extends StatelessWidget {
                 child: Stack(
                   fit: StackFit.expand,
                   children: [
-                    Hero(
-                      tag: 'product_picture_${product.id}',
-                      child: Image.network(
-                        product.image,
-                        fit: BoxFit.cover,
-                      ),
+                    Image.network(
+                      product.image,
+                      fit: BoxFit.cover,
                     ),
                     Align(
                       alignment: Alignment.topRight,
@@ -79,10 +84,20 @@ class ProductGridCard extends StatelessWidget {
                       children: [
                         Text('${product.intPrice} ₽',
                             style: AppTextTheme.smTitle),
-                        IconButton(
-                            icon: Icon(CupertinoIcons.cart),
-                            iconSize: 30,
-                            onPressed: () {})
+                        Selector<OrderProvider, bool>(
+                          selector: (_, p) => p.map.containsKey(product.id),
+                          builder: (context, inCart, child) => IconButton(
+                              icon: Icon(
+                                  inCart
+                                      ? CupertinoIcons.checkmark_circle
+                                      : CupertinoIcons.cart,
+                                  color: inCart ? Colors.green : null),
+                              iconSize: 30,
+                              onPressed: () {
+                                orderPvd.addListItem(product);
+                                orderPvd.notifyListeners();
+                              }),
+                        )
                       ],
                     )
                   ]),
