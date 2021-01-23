@@ -9,11 +9,11 @@ class Product extends BaseModel {
   final int id;
   final List<String> tag;
 
-  @JsonKey(name: 'rating_score')
+  @JsonKey(name: 'rating_score', defaultValue: 0)
   final double ratingScore;
 
-  @JsonKey(name: 'amount_of_feedbacks')
-  final double amountOfFeedbacks;
+  @JsonKey(name: 'amount_of_feedbacks', defaultValue: 0)
+  final int amountOfFeedbacks;
 
   final String name;
   final String image;
@@ -27,8 +27,11 @@ class Product extends BaseModel {
   final int brand;
   final List<int> properties;
 
-  @JsonKey(name: 'similar_products')
-  final List<int> similarProducts;
+  @JsonKey(name: 'similar_products_info')
+  final List<Map<String, String>> similarProductsInfo;
+
+  @JsonKey(name: 'properties_pairs')
+  final List<List<String>> propertiesPairs;
 
   final List<int> subcategories;
 
@@ -45,7 +48,8 @@ class Product extends BaseModel {
       this.price,
       this.brand,
       this.properties,
-      this.similarProducts,
+      this.similarProductsInfo,
+      this.propertiesPairs,
       this.subcategories});
 
   get intPrice {
