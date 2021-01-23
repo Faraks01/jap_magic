@@ -3,11 +3,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:jap_magic/pages/BrandPage.dart';
 import 'package:jap_magic/pages/CategoryPage.dart';
+import 'package:jap_magic/pages/DeliveryInfoPage.dart';
+import 'package:jap_magic/pages/FeedbacksPage.dart';
 import 'package:jap_magic/pages/MainPage.dart';
+import 'package:jap_magic/pages/ProductPage.dart';
 import 'package:jap_magic/pages/StartPage.dart';
 import 'package:jap_magic/providers/BrandsProvider.dart';
 import 'package:jap_magic/providers/CategoriesProvider.dart';
 import 'package:jap_magic/providers/FavoriteProductsProvider.dart';
+import 'package:jap_magic/providers/OrderProvider.dart';
 import 'package:jap_magic/providers/ProductLinesProvider.dart';
 import 'package:jap_magic/providers/ProductsProvider.dart';
 import 'package:jap_magic/providers/SubcategoriesProvider.dart';
@@ -40,6 +44,9 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider<FavoriteProductsProvider>(
           create: (_) => FavoriteProductsProvider(),
         ),
+        ChangeNotifierProvider<OrderProvider>(
+          create: (_) => OrderProvider(),
+        ),
       ],
       child: CupertinoApp(
         title: 'Jap Magic',
@@ -50,6 +57,18 @@ class MyApp extends StatelessWidget {
         ],
         theme: CupertinoThemeData(
             textTheme: const CupertinoTextThemeData(
+                navLargeTitleTextStyle: TextStyle(
+                    color: Colors.white,
+                    fontFamily: 'OpenSans',
+                    fontSize: 14,
+                    letterSpacing: 3,
+                    fontWeight: FontWeight.w700),
+                navActionTextStyle: TextStyle(
+                    color: Colors.white,
+                    fontFamily: 'OpenSans',
+                    fontSize: 18,
+                    letterSpacing: 3,
+                    fontWeight: FontWeight.w700),
                 navTitleTextStyle: TextStyle(
                     color: Colors.white,
                     fontFamily: 'OpenSans',
@@ -79,10 +98,29 @@ class MyApp extends StatelessWidget {
                 ModalRoute.of(ctx).settings.arguments;
 
             final categoriesProvider =
-            Provider.of<CategoriesProvider>(ctx, listen: false);
+                Provider.of<CategoriesProvider>(ctx, listen: false);
 
-            return CategoryPage(category: categoriesProvider.map[routeParams.id]);
-          }
+            return CategoryPage(
+                category: categoriesProvider.map[routeParams.id]);
+          },
+          ProductPage.routeName: (ctx) {
+            final ProductPageRouteArguments routeParams =
+                ModalRoute.of(ctx).settings.arguments;
+
+            final productsProvider =
+                Provider.of<ProductsProvider>(ctx, listen: false);
+
+            return ProductPage(product: productsProvider.map[routeParams.id]);
+          },
+          DeliveryInfoPage.routeName: (ctx) => DeliveryInfoPage(),
+          FeedbacksPage.routeName: (ctx) {
+            final _routeParams = ModalRoute.of(ctx).settings.arguments;
+            assert(_routeParams is FeedbacksPageRouteArguments);
+
+            final FeedbacksPageRouteArguments routeParams = _routeParams;
+
+            return FeedbacksPage(product: routeParams.product);
+          },
         },
       ),
     );
