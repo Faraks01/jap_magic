@@ -17,6 +17,7 @@ class StoreList<T extends BaseProvider, T1 extends BaseModel>
   final double itemSpacing;
   final double itemAspectRatio;
   final Map<String, String> queryParams;
+  final bool bottomViewPadding;
 
   StoreList({
     Key key,
@@ -28,6 +29,7 @@ class StoreList<T extends BaseProvider, T1 extends BaseModel>
     this.rows = 2,
     this.limit = 10,
     this.lazyLoading = true,
+    this.bottomViewPadding = false,
     this.queryParams,
     this.itemSpacing = 10,
   }) : super(key: key);
@@ -37,6 +39,7 @@ class StoreList<T extends BaseProvider, T1 extends BaseModel>
   @override
   Widget build(BuildContext context) {
     final provider = Provider.of<T>(context, listen: false);
+    final bottomViewPadding = MediaQuery.of(context).viewPadding.bottom;
 
     bool _handleScrollNotification(ScrollNotification notification) {
       if (notification is ScrollEndNotification) {
@@ -129,6 +132,8 @@ class StoreList<T extends BaseProvider, T1 extends BaseModel>
                 ),
               ]),
             ),
+            if (bottomViewPadding != null)
+              SliverPadding(padding: EdgeInsets.only(bottom: bottomViewPadding))
           ],
         ));
   }
