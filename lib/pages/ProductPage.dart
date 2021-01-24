@@ -255,7 +255,7 @@ class ProductPage extends StatelessWidget with WithPromptDialog {
                     disabledColor: Colors.red[400],
                     padding: EdgeInsets.zero,
                     child: Text(inCart ? 'Уже в корзине' : 'Добавить в корзину',
-                        style: AppTextTheme.xsTitle.merge(TextStyle(
+                        style: AppTextTheme.smTitle.merge(TextStyle(
                             color: inCart ? Colors.white : Colors.black))),
                     onPressed: inCart
                         ? null
