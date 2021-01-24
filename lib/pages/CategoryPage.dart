@@ -56,6 +56,7 @@ class _CategoryPageState extends State<CategoryPage> {
             Text(widget.category.name, style: TextStyle(color: Colors.white)),
       ),
       child: StoreList<ProductsProvider, Product>(
+        bottomViewPadding: true,
         limit: 10,
         itemAspectRatio: 0.6,
         queryParams: {
