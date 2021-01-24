@@ -107,10 +107,13 @@ class MyApp extends StatelessWidget {
             final ProductPageRouteArguments routeParams =
                 ModalRoute.of(ctx).settings.arguments;
 
-            final productsProvider =
-                Provider.of<ProductsProvider>(ctx, listen: false);
+            final product = Provider.of<ProductsProvider>(ctx, listen: false)
+                .map[routeParams.id];
 
-            return ProductPage(product: productsProvider.map[routeParams.id]);
+            return ProductPage(
+              product: product,
+              id: product == null ? routeParams.id : null,
+            );
           },
           DeliveryInfoPage.routeName: (ctx) => DeliveryInfoPage(),
           FeedbacksPage.routeName: (ctx) {
