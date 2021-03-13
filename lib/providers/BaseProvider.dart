@@ -9,10 +9,13 @@ abstract class BaseProvider<T extends BaseModel> with ChangeNotifier {
 
   ExternalApi get fetchApi =>
       ExternalApi(viewSet: viewSet, method: AllowedRequestMethods.get);
+
   ExternalApi get createApi =>
       ExternalApi(viewSet: viewSet, method: AllowedRequestMethods.post);
+
   ExternalApi get updateApi =>
       ExternalApi(viewSet: viewSet, method: AllowedRequestMethods.patch);
+
   ExternalApi get deleteApi =>
       ExternalApi(viewSet: viewSet, method: AllowedRequestMethods.delete);
 
@@ -111,16 +114,18 @@ abstract class BaseProvider<T extends BaseModel> with ChangeNotifier {
     }
   }
 
-  void removeListItem(int id) {
+  void removeListItem(int id, {bool notify = false}) {
     _payloadKeys.removeWhere((key) => key == id);
     map.remove(id);
+    if (notify) notifyListeners();
   }
 
-  void removeListItems(List<int> idList) {
+  void removeListItems(List<int> idList, {bool notify = false}) {
     for (var id in idList) {
       _payloadKeys.removeWhere((key) => key == id);
       map.remove(id);
     }
+    if (notify) notifyListeners();
   }
 
   void addRemovableKey(int key) {
