@@ -1,11 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:jap_magic/pages/BillingPage.dart';
 import 'package:jap_magic/pages/BrandPage.dart';
 import 'package:jap_magic/pages/CategoryPage.dart';
 import 'package:jap_magic/pages/DeliveryInfoPage.dart';
 import 'package:jap_magic/pages/FeedbacksPage.dart';
 import 'package:jap_magic/pages/MainPage.dart';
+import 'package:jap_magic/pages/OrderPage/OrderPage.dart';
 import 'package:jap_magic/pages/ProductPage.dart';
 import 'package:jap_magic/pages/StartPage.dart';
 import 'package:jap_magic/providers/BrandsProvider.dart';
@@ -110,12 +112,27 @@ class MyApp extends StatelessWidget {
             final product = Provider.of<ProductsProvider>(ctx, listen: false)
                 .map[routeParams.id];
 
+            final orderPvd = Provider.of<OrderProvider>(ctx, listen: false);
+
+            if (!orderPvd.map.containsKey(product.id)) {
+              if (orderPvd.recentlyViewedProducts.length == 12) {
+                orderPvd.recentlyViewedProducts.removeLast();
+              }
+
+              orderPvd.recentlyViewedProducts.add(product);
+
+              Future.delayed(Duration.zero, () {
+                orderPvd.notifyListeners();
+              });
+            }
+
             return ProductPage(
               product: product,
               id: product == null ? routeParams.id : null,
             );
           },
           DeliveryInfoPage.routeName: (ctx) => DeliveryInfoPage(),
+          BillingPage.routeName: (ctx) => BillingPage(),
           FeedbacksPage.routeName: (ctx) {
             final _routeParams = ModalRoute.of(ctx).settings.arguments;
             assert(_routeParams is FeedbacksPageRouteArguments);
@@ -124,6 +141,7 @@ class MyApp extends StatelessWidget {
 
             return FeedbacksPage(product: routeParams.product);
           },
+          OrderPage.routeName: (ctx) => OrderPage(),
         },
       ),
     );
