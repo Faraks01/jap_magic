@@ -11,11 +11,43 @@ class Session implements ISession {
     return _instance;
   }
 
+  bool _orderPageAnimations = false;
+
+  set orderPageAnimations(bool value) {
+    if (_orderPageAnimations) return;
+
+    updateSharedPreferences((sharedPreferences) {
+      sharedPreferences.setBool('orderPageAnimations', true);
+    });
+    
+    _orderPageAnimations = value;
+  }
+
+  get orderPageAnimations => _orderPageAnimations;
+
   Map<String, String> defaultHeaders = {'requesting-client': 'flutter-mobile'};
 
   SharedPreferences sharedPreferences;
 
   RegExp sessionIdRegex = RegExp(r'sessionid=[\w|\d]*;');
+
+  Future<void> checkOrderPageAnimations() async {
+    await updateSharedPreferences((sharedPreferences) {
+      if (sharedPreferences.containsKey('orderPageAnimations')) {
+        orderPageAnimations = true;
+      }
+    });
+
+    return 200;
+  }
+  
+  Future<void> updateSharedPreferences(Function(SharedPreferences sharedPreferences) cb) async {
+    if (sharedPreferences == null) {
+      sharedPreferences = await SharedPreferences.getInstance();
+    }
+    
+    cb(sharedPreferences);
+  }
 
   Future<String> get sessionId async {
     if (sharedPreferences == null) {

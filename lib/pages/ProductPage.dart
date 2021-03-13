@@ -260,6 +260,10 @@ class ProductPage extends StatelessWidget with WithPromptDialog {
                     onPressed: inCart
                         ? null
                         : () {
+                            if (orderPvd.recentlyViewedProducts.contains(product)) {
+                              orderPvd.recentlyViewedProducts.remove(product);
+                            }
+
                             orderPvd.addListItem(product);
                             orderPvd.notifyListeners();
                           },

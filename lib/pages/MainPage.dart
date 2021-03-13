@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:jap_magic/pages/CatalogPage/CatalogPage.dart';
 import 'package:jap_magic/pages/PromoPage.dart';
 
+import 'OrderPage/OrderPage.dart';
+
 class MainPage extends StatelessWidget {
   static const routeName = '/main-page';
 
@@ -11,7 +13,7 @@ class MainPage extends StatelessWidget {
     PromoPage(),
     PromoPage(),
     PromoPage(),
-    PromoPage(),
+    OrderPage(),
   ];
 
   @override

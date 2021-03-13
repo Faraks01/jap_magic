@@ -5,7 +5,6 @@ part 'Product.g.dart';
 
 @JsonSerializable(includeIfNull: true)
 class Product extends BaseModel {
-  // @JsonKey(name: 'example_field')
   final int id;
   final List<String> tag;
 
@@ -34,6 +33,12 @@ class Product extends BaseModel {
   final List<List<String>> propertiesPairs;
 
   final List<int> subcategories;
+
+  @JsonKey(ignore: true)
+  int quantity = 1;
+
+  @JsonKey(ignore: true)
+  int get summaryPrice => quantity * intPrice;
 
   Product(
       {this.id,

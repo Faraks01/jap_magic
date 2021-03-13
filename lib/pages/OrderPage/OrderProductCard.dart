@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:jap_magic/models/Product.dart';
+import 'package:jap_magic/network/Session.dart';
 import 'package:jap_magic/pages/ProductPage.dart';
 import 'package:jap_magic/providers/BrandsProvider.dart';
 import 'package:jap_magic/providers/OrderProvider.dart';
@@ -38,68 +39,85 @@ class OrderProductCard extends StatelessWidget {
         controller: slidableController,
         actionPane: SlidableBehindActionPane(),
         actionExtentRatio: 0.25,
-        child: CupertinoButton(
-          padding: EdgeInsets.zero,
-          minSize: 30,
-          onPressed: () {
-            nav.pushNamed(ProductPage.routeName,
-                arguments: ProductPageRouteArguments(id: product.id));
-          },
-          child: Card(
-            margin: EdgeInsets.zero,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.zero,
-            ),
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Row(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(right: 16),
-                    child: ConstrainedBox(
-                      constraints: BoxConstraints(
-                        maxWidth: 120,
+        child: Builder(
+          builder: (context) {
+            if (firstItemInList && !Session().orderPageAnimations) {
+              final slidableController = Slidable.of(context);
+
+              Future.delayed(Duration.zero, () {
+                slidableController.open(actionType: SlideActionType.secondary);
+
+                Future.delayed(Duration(milliseconds: 500), () {
+                  slidableController.close();
+                  Session().orderPageAnimations = true;
+                });
+              });
+            }
+
+            return CupertinoButton(
+              padding: EdgeInsets.zero,
+              minSize: 30,
+              onPressed: () {
+                nav.pushNamed(ProductPage.routeName,
+                    arguments: ProductPageRouteArguments(id: product.id));
+              },
+              child: Card(
+                margin: EdgeInsets.zero,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.zero,
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Row(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(right: 16),
+                        child: ConstrainedBox(
+                          constraints: BoxConstraints(
+                            maxWidth: 120,
+                          ),
+                          child: Image.network(product.image, fit: BoxFit.fill),
+                        ),
                       ),
-                      child: Image.network(product.image, fit: BoxFit.fill),
-                    ),
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(brand.name, style: AppTextTheme.mdTitle),
+                            const SizedBox(height: 6),
+                            Text(product.name, style: AppTextTheme.mdText),
+                            const SizedBox(height: 3),
+                            ...product.propertiesPairs
+                                .map((e) => Padding(
+                                      padding: const EdgeInsets.only(top: 3),
+                                      child: Text.rich(TextSpan(
+                                        text: "${e[0]}: ",
+                                        style: AppTextTheme.xsTitle,
+                                        children: [
+                                          TextSpan(
+                                              text: e[1],
+                                              style: AppTextTheme.xsText.merge(
+                                                  TextStyle(
+                                                      color: Colors.grey[600])))
+                                        ],
+                                      )),
+                                    ))
+                                .toList(),
+                            const SizedBox(height: 6),
+                            Text('${product.intPrice} ₽',
+                                style: AppTextTheme.lgTitle),
+                            const SizedBox(height: 6),
+                            Text('# ${product.barcode}',
+                                style: AppTextTheme.smText),
+                          ],
+                        ),
+                      )
+                    ],
                   ),
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(brand.name, style: AppTextTheme.mdTitle),
-                        const SizedBox(height: 6),
-                        Text(product.name, style: AppTextTheme.mdText),
-                        const SizedBox(height: 3),
-                        ...product.propertiesPairs
-                            .map((e) => Padding(
-                                  padding: const EdgeInsets.only(top: 3),
-                                  child: Text.rich(TextSpan(
-                                    text: "${e[0]}: ",
-                                    style: AppTextTheme.xsTitle,
-                                    children: [
-                                      TextSpan(
-                                          text: e[1],
-                                          style: AppTextTheme.xsText.merge(
-                                              TextStyle(
-                                                  color: Colors.grey[600])))
-                                    ],
-                                  )),
-                                ))
-                            .toList(),
-                        const SizedBox(height: 6),
-                        Text('${product.intPrice} ₽',
-                            style: AppTextTheme.lgTitle),
-                        const SizedBox(height: 6),
-                        Text('# ${product.barcode}',
-                            style: AppTextTheme.smText),
-                      ],
-                    ),
-                  )
-                ],
+                ),
               ),
-            ),
-          ),
+            );
+          },
         ),
         secondaryActions: <Widget>[
           IconSlideAction(

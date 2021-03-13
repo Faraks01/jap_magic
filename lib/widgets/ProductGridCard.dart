@@ -93,7 +93,11 @@ class ProductGridCard extends StatelessWidget {
                                       : CupertinoIcons.cart,
                                   color: inCart ? Colors.green : null),
                               iconSize: 30,
-                              onPressed: () {
+                              onPressed: inCart ? null : () {
+                                if (orderPvd.recentlyViewedProducts.contains(product)) {
+                                  orderPvd.recentlyViewedProducts.remove(product);
+                                }
+
                                 orderPvd.addListItem(product);
                                 orderPvd.notifyListeners();
                               }),

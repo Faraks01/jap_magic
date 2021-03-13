@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:jap_magic/models/Brand.dart';
 import 'package:jap_magic/models/Category.dart';
 import 'package:jap_magic/models/Subcategory.dart';
+import 'package:jap_magic/network/Session.dart';
 import 'package:jap_magic/pages/MainPage.dart';
 import 'package:jap_magic/providers/BrandsProvider.dart';
 import 'package:jap_magic/providers/CategoriesProvider.dart';
@@ -67,6 +68,7 @@ class _StartPageState extends State<StartPage>
             triggerLoading: false,
             listApi: subcategoriesProvider.fetchApi.makeRequest,
             modelJsonConstructor: (json) => Subcategory.fromJson(json)),
+        Session().checkOrderPageAnimations(),
         favoriteProductsProvider.getKeysFromDeviceStorage()
       ]),
       builder: (context, snapshot) {

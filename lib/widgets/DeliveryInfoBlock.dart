@@ -16,8 +16,8 @@ class DeliveryInfoBlock extends StatelessWidget {
       shrinkWrap: true,
       children: [
         Container(
-          decoration:
-              BoxDecoration(border: Border.all(color: Colors.grey[400])),
+          decoration: BoxDecoration(
+              border: Border.all(color: Colors.grey[400]), color: Colors.white),
           child: ListView(
             padding: const EdgeInsets.all(8),
             physics: const NeverScrollableScrollPhysics(),
@@ -99,10 +99,10 @@ class DeliveryInfoBlock extends StatelessWidget {
               padding: EdgeInsets.zero,
               child: Text(
                 'Подробнее про условия доставки',
-                style: TextStyle(color: Colors.grey[400]),
+                style: TextStyle(color: Colors.grey[500]),
               ),
               onPressed: () {
-                Navigator.of(context).pushNamed(DeliveryInfoPage.routeName);
+                Navigator.of(context, rootNavigator: true).pushNamed(DeliveryInfoPage.routeName);
               }),
         )
       ],
