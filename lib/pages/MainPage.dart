@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:jap_magic/pages/CatalogPage/CatalogPage.dart';
 import 'package:jap_magic/pages/PromoPage.dart';
+import 'package:jap_magic/pages/UserPage/UserPage.dart';
 
 import 'OrderPage/OrderPage.dart';
 
@@ -12,7 +13,7 @@ class MainPage extends StatelessWidget {
     CatalogPage(),
     PromoPage(),
     PromoPage(),
-    PromoPage(),
+    UserPage(),
     OrderPage(),
   ];
 
