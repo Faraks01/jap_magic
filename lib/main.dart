@@ -17,6 +17,7 @@ import 'package:jap_magic/providers/OrderProvider.dart';
 import 'package:jap_magic/providers/ProductLinesProvider.dart';
 import 'package:jap_magic/providers/ProductsProvider.dart';
 import 'package:jap_magic/providers/SubcategoriesProvider.dart';
+import 'package:jap_magic/providers/UsersProvider.dart';
 import 'package:provider/provider.dart';
 
 void main() {
@@ -48,6 +49,9 @@ class MyApp extends StatelessWidget {
         ),
         ChangeNotifierProvider<OrderProvider>(
           create: (_) => OrderProvider(),
+        ),
+        ChangeNotifierProvider<UsersProvider>(
+          create: (_) => UsersProvider(),
         ),
       ],
       child: CupertinoApp(
