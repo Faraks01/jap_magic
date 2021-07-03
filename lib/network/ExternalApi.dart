@@ -10,6 +10,7 @@ class OrderingFilters {
 }
 
 class ViewSets {
+  static const users = '/users';
   static const brands = '/brands';
   static const categories = '/categories';
   static const productLines = '/lines';
