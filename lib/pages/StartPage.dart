@@ -10,6 +10,7 @@ import 'package:jap_magic/providers/BrandsProvider.dart';
 import 'package:jap_magic/providers/CategoriesProvider.dart';
 import 'package:jap_magic/providers/FavoriteProductsProvider.dart';
 import 'package:jap_magic/providers/SubcategoriesProvider.dart';
+import 'package:jap_magic/providers/UsersProvider.dart';
 import 'package:provider/provider.dart';
 
 class StartPage extends StatefulWidget {
@@ -47,6 +48,7 @@ class _StartPageState extends State<StartPage>
         Provider.of<CategoriesProvider>(context, listen: false);
     final favoriteProductsProvider =
         Provider.of<FavoriteProductsProvider>(context, listen: false);
+    final usersProvider = Provider.of<UsersProvider>(context, listen: false);
 
     return FutureBuilder(
       future: Future.wait<dynamic>([
@@ -69,7 +71,8 @@ class _StartPageState extends State<StartPage>
             listApi: subcategoriesProvider.fetchApi.makeRequest,
             modelJsonConstructor: (json) => Subcategory.fromJson(json)),
         Session().checkOrderPageAnimations(),
-        favoriteProductsProvider.getKeysFromDeviceStorage()
+        favoriteProductsProvider.getKeysFromDeviceStorage(),
+        usersProvider.retrieveSessionUser()
       ]),
       builder: (context, snapshot) {
         if (snapshot.hasData && snapshot.data.every((e) => e == 200)) {
