@@ -1,98 +1,57 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:jap_magic/pages/UserPage/BottomSheetTab.dart';
+import 'package:jap_magic/models/User.dart';
+import 'package:jap_magic/pages/UserPage/LoyaltyCard.dart';
+import 'package:jap_magic/pages/UserPage/SlideMenuTab.dart';
+import 'package:jap_magic/pages/UserPage/UnauthorizedContent.dart';
+import 'package:jap_magic/providers/UsersProvider.dart';
+import 'package:jap_magic/widgets/KeyboardDismissWrapper.dart';
+import 'package:provider/provider.dart';
 
-class UserPage extends StatelessWidget {
+import 'AuthorizedContent.dart';
+
+class UserPage extends StatefulWidget {
   static const routeName = '/user-page';
 
   @override
+  _UserPageState createState() => _UserPageState();
+}
+
+class _UserPageState extends State<UserPage> {
+  double _backgroundScaling = 1;
+
+  @override
   Widget build(BuildContext context) {
-    return CupertinoPageScaffold(
-      navigationBar: CupertinoNavigationBar(
-        middle: Text('Аккаунт'),
-      ),
-      child: Stack(
-        children: <Widget>[
-          SizedBox.expand(
-            child: Container(
-              color: Colors.red,
+    return KeyboardDismissWrapper(
+      child: CupertinoPageScaffold(
+        navigationBar: CupertinoNavigationBar(
+          middle: Text('Аккаунт'),
+        ),
+        child: Stack(
+          children: <Widget>[
+            Transform.scale(
+              scale: _backgroundScaling,
+              child: Image.asset('assets/images/background.jpg',
+                  height: double.infinity, fit: BoxFit.cover),
             ),
-          ),
-          DraggableScrollableSheet(
-            initialChildSize: 0.6,
-            minChildSize: 0.2,
-            maxChildSize: 0.6,
-            builder: (BuildContext context, ScrollController scrollController) {
-              return ClipRRect(
-                borderRadius: BorderRadius.circular(16),
-                child: SingleChildScrollView(
-                  controller: scrollController,
-                  child: Container(
-                    color: Colors.white,
-                    child: ListView(
-                      padding: EdgeInsets.zero,
-                      shrinkWrap: true,
-                      physics: NeverScrollableScrollPhysics(),
-                      children: [
-                        const SizedBox(height: 8),
-                        BottomSheetTab(
-                          icon: CupertinoIcons.archivebox,
-                          text: 'Мои заказы',
-                          onTap: () {},
-                        ),
-                        BottomSheetTab(
-                          icon: CupertinoIcons.heart,
-                          text: 'Избранное',
-                          onTap: () {},
-                        ),
-                        BottomSheetTab(
-                          icon: CupertinoIcons.eye,
-                          text: 'Просмотренные товары',
-                          onTap: () {},
-                        ),
-                        BottomSheetTab(
-                          icon: CupertinoIcons.play,
-                          text: 'Карусель подарков',
-                          onTap: () {},
-                        ),
-                        BottomSheetTab(
-                          icon: CupertinoIcons.ticket,
-                          text: 'Мои купоны',
-                          onTap: () {},
-                        ),
-                        BottomSheetTab(
-                          icon: CupertinoIcons.home,
-                          text: 'Мои адреса',
-                          onTap: () {},
-                        ),
-                        BottomSheetTab(
-                          icon: CupertinoIcons.exclamationmark_bubble,
-                          text: 'Обратная связь',
-                          onTap: () {},
-                        ),
-                        BottomSheetTab(
-                          icon: CupertinoIcons.creditcard,
-                          text: 'Программа лояльности',
-                          onTap: () {},
-                        ),
-                        BottomSheetTab(
-                          icon: CupertinoIcons.question_circle,
-                          text: 'Помощь',
-                          onTap: () {},
-                        ),
-                        BottomSheetTab(
-                          icon: CupertinoIcons.gear_alt,
-                          text: 'Настройки',
-                          onTap: () {},
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              );
-            },
-          )
-        ],
+            Selector<UsersProvider, User>(
+              selector: (_, p) => p.mainUser,
+              builder: (context, mainUser, child) {
+                print(MediaQuery.of(context));
+                if (null != null) {
+                  return AuthorizedContent(
+                      handleBackgroundScalingChange: (scaling) {
+                    setState(() {
+                      _backgroundScaling = scaling;
+                    });
+                  });
+                } else {
+                  return UnauthorizedContent();
+                }
+              },
+            )
+          ],
+        ),
       ),
     );
   }

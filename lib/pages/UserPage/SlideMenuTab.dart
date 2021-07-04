@@ -2,12 +2,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:jap_magic/themes.dart';
 
-class BottomSheetTab extends StatelessWidget {
+class SlideMenuTab extends StatelessWidget {
   final IconData icon;
   final String text;
   final Function onTap;
 
-  BottomSheetTab({this.icon, this.text, this.onTap});
+  SlideMenuTab({this.icon, this.text, this.onTap});
 
   @override
   Widget build(BuildContext context) {
