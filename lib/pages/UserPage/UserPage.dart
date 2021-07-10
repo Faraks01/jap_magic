@@ -19,11 +19,20 @@ class UserPage extends StatefulWidget {
 
 class _UserPageState extends State<UserPage> {
   double _backgroundScaling = 1;
+  double _keyboardValue;
 
   @override
   Widget build(BuildContext context) {
     return KeyboardDismissWrapper(
-      child: CupertinoPageScaffold(
+        child: LayoutBuilder(builder: (context, constraints) {
+      double keyboardHeight =
+          MediaQuery.of(context).size.height - constraints.maxHeight;
+
+      if (_keyboardValue == null) {
+        _keyboardValue = keyboardHeight;
+      }
+
+      return CupertinoPageScaffold(
         navigationBar: CupertinoNavigationBar(
           middle: Text('Аккаунт'),
         ),
@@ -37,7 +46,6 @@ class _UserPageState extends State<UserPage> {
             Selector<UsersProvider, User>(
               selector: (_, p) => p.mainUser,
               builder: (context, mainUser, child) {
-                print(MediaQuery.of(context));
                 if (null != null) {
                   return AuthorizedContent(
                       handleBackgroundScalingChange: (scaling) {
@@ -46,13 +54,14 @@ class _UserPageState extends State<UserPage> {
                     });
                   });
                 } else {
-                  return UnauthorizedContent();
+                  return UnauthorizedContent(
+                      keyboardOpen: _keyboardValue != keyboardHeight);
                 }
               },
             )
           ],
         ),
-      ),
-    );
+      );
+    }));
   }
 }

@@ -47,60 +47,64 @@ class _LoginFormState extends State<LoginForm> {
 
   @override
   Widget build(BuildContext context) {
-    return Material(
-      child: Padding(
-        padding: EdgeInsets.only(bottom: 0),
-        child: Form(
-          key: _formKey,
-          child: Padding(
-            padding: const EdgeInsets.all(20),
-            child: Column(
-              mainAxisSize: MainAxisSize.max,
-              children: <Widget>[
-                Padding(
-                    padding: const EdgeInsets.only(bottom: 20),
-                    child: Text(
-                      'Вход',
-                      style: AppTextTheme.xlTitle,
-                    )),
-                TextFormField(
-                    keyboardType: TextInputType.phone,
-                    decoration: InputDecoration(labelText: "Номер телефона"),
-                    validator: this._validatePhoneNumber,
+    return Scaffold(
+      body: Builder(builder: (ctx) {
+        return Padding(
+          padding: EdgeInsets.only(bottom: 0),
+          child: Form(
+            key: _formKey,
+            child: Padding(
+              padding: const EdgeInsets.all(20),
+              child: Column(
+                mainAxisSize: MainAxisSize.max,
+                children: <Widget>[
+                  Padding(
+                      padding: const EdgeInsets.only(bottom: 20),
+                      child: Text(
+                        'Вход',
+                        style: AppTextTheme.xlTitle,
+                      )),
+                  TextFormField(
+                      keyboardType: TextInputType.phone,
+                      decoration: InputDecoration(labelText: "Номер телефона"),
+                      validator: this._validatePhoneNumber,
+                      onSaved: (String value) {
+                        this._data.phoneNumber = value;
+                      }),
+                  TextFormField(
+                    obscureText: true,
+                    decoration: InputDecoration(labelText: "Пароль"),
+                    validator: this._validatePassword,
                     onSaved: (String value) {
-                      this._data.phoneNumber = value;
-                    }),
-                TextFormField(
-                  obscureText: true,
-                  decoration: InputDecoration(labelText: "Пароль"),
-                  validator: this._validatePassword,
-                  onSaved: (String value) {
-                    this._data.password = value;
-                  },
-                ),
-                Expanded(
-                  child: Align(
-                    alignment: Alignment.bottomCenter,
-                    child: Padding(
-                      padding: const EdgeInsets.only(top: 30),
-                      child: Container(
-                        height: 45,
-                        width: double.infinity,
-                        child: ElevatedButton(
-                          onPressed: this.submit,
-                          child: Text('Войти',
-                              style: AppButtonTheme.text
-                                  .merge(TextStyle(color: Colors.white))),
+                      this._data.password = value;
+                    },
+                  ),
+                  Expanded(
+                    child: Align(
+                      alignment: Alignment.bottomCenter,
+                      child: Padding(
+                        padding: const EdgeInsets.only(top: 30),
+                        child: Container(
+                          height: 45,
+                          width: double.infinity,
+                          child: ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                                primary: Colors.purple),
+                            onPressed: this.submit,
+                            child: Text('Войти',
+                                style: AppButtonTheme.text
+                                    .merge(TextStyle(color: Colors.white))),
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                )
-              ],
+                  )
+                ],
+              ),
             ),
           ),
-        ),
-      ),
+        );
+      }),
     );
   }
 }
