@@ -55,56 +55,74 @@ class _LoginFormState extends State<LoginForm> {
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(16),
                 border: Border.all(color: Colors.black26, width: 1)),
-            child: Form(
-              key: _formKey,
-              child: Padding(
-                padding: const EdgeInsets.all(20),
-                child: ListView(
-                  padding: EdgeInsets.zero,
-                  shrinkWrap: true,
-                  physics: NeverScrollableScrollPhysics(),
-                  children: <Widget>[
-                    Align(
-                      alignment: Alignment.center,
-                      child: Padding(
-                          padding: const EdgeInsets.only(bottom: 20),
-                          child: Text(
-                            'Вход',
-                            style: AppTextTheme.xlTitle,
-                          )),
+            child: Theme(
+              data: ThemeData(
+                  primarySwatch: Colors.purple,
+                  accentColor: Colors.white,
+                  inputDecorationTheme: const InputDecorationTheme(
+                    focusedBorder: UnderlineInputBorder(
+                        borderSide: BorderSide(color: Colors.purple)),
+                  ),
+                  elevatedButtonTheme: ElevatedButtonThemeData(
+                    style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.all<Color>(
+                          Colors.purple), //button color
+                      foregroundColor: MaterialStateProperty.all<Color>(
+                          Colors.white), //text (and icon)
                     ),
-                    TextFormField(
-                        keyboardType: TextInputType.phone,
-                        decoration:
-                            InputDecoration(labelText: "Номер телефона"),
-                        validator: this._validatePhoneNumber,
-                        onSaved: (String value) {
-                          this._data.phoneNumber = value;
-                        }),
-                    TextFormField(
-                      obscureText: true,
-                      decoration: InputDecoration(labelText: "Пароль"),
-                      validator: this._validatePassword,
-                      onSaved: (String value) {
-                        this._data.password = value;
-                      },
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 80),
-                      child: Container(
-                        height: 45,
-                        width: double.infinity,
-                        child: ElevatedButton(
-                          style:
-                              ElevatedButton.styleFrom(primary: Colors.purple),
-                          onPressed: this.submit,
-                          child: Text('Войти',
-                              style: AppButtonTheme.text
-                                  .merge(TextStyle(color: Colors.white))),
-                        ),
+                  ),
+                  primaryColor: Colors.orangeAccent),
+              child: Form(
+                key: _formKey,
+                child: Padding(
+                  padding: const EdgeInsets.all(20),
+                  child: ListView(
+                    padding: EdgeInsets.zero,
+                    shrinkWrap: true,
+                    physics: NeverScrollableScrollPhysics(),
+                    children: <Widget>[
+                      Align(
+                        alignment: Alignment.center,
+                        child: Padding(
+                            padding: const EdgeInsets.only(bottom: 20),
+                            child: Text(
+                              'Вход',
+                              style: AppTextTheme.xlTitle,
+                            )),
                       ),
-                    )
-                  ],
+                      TextFormField(
+                          keyboardType: TextInputType.phone,
+                          decoration:
+                              InputDecoration(labelText: "Номер телефона"),
+                          validator: this._validatePhoneNumber,
+                          onSaved: (String value) {
+                            this._data.phoneNumber = value;
+                          }),
+                      TextFormField(
+                        obscureText: true,
+                        decoration: InputDecoration(labelText: "Пароль"),
+                        validator: this._validatePassword,
+                        onSaved: (String value) {
+                          this._data.password = value;
+                        },
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 80),
+                        child: Container(
+                          height: 45,
+                          width: double.infinity,
+                          child: ElevatedButton(
+                            // style:
+                            //     ElevatedButton.styleFrom(primary: Colors.purple),
+                            onPressed: this.submit,
+                            child: Text('Войти',
+                                style: AppButtonTheme.text
+                                    .merge(TextStyle(color: Colors.white))),
+                          ),
+                        ),
+                      )
+                    ],
+                  ),
                 ),
               ),
             ),
