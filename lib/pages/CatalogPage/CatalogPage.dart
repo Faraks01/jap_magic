@@ -5,6 +5,8 @@ import 'package:jap_magic/pages/CatalogPage/CategoriesList.dart';
 import 'package:jap_magic/themes.dart';
 
 class CatalogPage extends StatelessWidget {
+  static const routeName = '/catalog-page';
+
   final _pageController = PageController();
   final ValueNotifier<int> _currentPage = ValueNotifier<int>(0);
 

@@ -4,6 +4,8 @@ import 'package:flutter_swiper/flutter_swiper.dart';
 import 'package:jap_magic/themes.dart';
 
 class PromoPage extends StatelessWidget {
+  static const routeName = "/promo-page";
+
   static final banners = <Image>[
     Image.asset(
       'assets/images/banner_1.png',

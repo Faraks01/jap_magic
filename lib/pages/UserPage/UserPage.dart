@@ -24,44 +24,34 @@ class _UserPageState extends State<UserPage> {
   @override
   Widget build(BuildContext context) {
     return KeyboardDismissWrapper(
-        child: LayoutBuilder(builder: (context, constraints) {
-      double keyboardHeight =
-          MediaQuery.of(context).size.height - constraints.maxHeight;
-
-      if (_keyboardValue == null) {
-        _keyboardValue = keyboardHeight;
-      }
-
-      return CupertinoPageScaffold(
-        navigationBar: CupertinoNavigationBar(
-          middle: Text('Аккаунт'),
-        ),
-        child: Stack(
-          children: <Widget>[
-            Transform.scale(
-              scale: _backgroundScaling,
-              child: Image.asset('assets/images/background.jpg',
-                  height: double.infinity, fit: BoxFit.cover),
-            ),
-            Selector<UsersProvider, User>(
-              selector: (_, p) => p.mainUser,
-              builder: (context, mainUser, child) {
-                if (null != null) {
-                  return AuthorizedContent(
-                      handleBackgroundScalingChange: (scaling) {
-                    setState(() {
-                      _backgroundScaling = scaling;
-                    });
-                  });
-                } else {
-                  return UnauthorizedContent(
-                      keyboardOpen: _keyboardValue != keyboardHeight);
-                }
-              },
-            )
-          ],
-        ),
-      );
-    }));
+        child: CupertinoPageScaffold(
+          navigationBar: CupertinoNavigationBar(
+            middle: Text('Аккаунт'),
+          ),
+          child: Stack(
+            children: <Widget>[
+              Transform.scale(
+                scale: _backgroundScaling,
+                child: Image.asset('assets/images/background.jpg',
+                    height: double.infinity, fit: BoxFit.cover),
+              ),
+              Selector<UsersProvider, User>(
+                selector: (_, p) => p.mainUser,
+                builder: (context, mainUser, child) {
+                  if (null != null) {
+                    return AuthorizedContent(
+                        handleBackgroundScalingChange: (scaling) {
+                          setState(() {
+                            _backgroundScaling = scaling;
+                          });
+                        });
+                  } else {
+                    return UnauthorizedContent();
+                  }
+                },
+              )
+            ],
+          ),
+        ));
   }
 }

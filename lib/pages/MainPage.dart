@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:jap_magic/pages/CatalogPage/CatalogPage.dart';
 import 'package:jap_magic/pages/PromoPage.dart';
 import 'package:jap_magic/pages/UserPage/UserPage.dart';
+import 'package:jap_magic/providers/KeyboardStateProvider.dart';
+import 'package:provider/provider.dart';
 
 import 'OrderPage/OrderPage.dart';
 
@@ -33,11 +35,7 @@ class MainPage extends StatelessWidget {
         ],
       ),
       tabBuilder: (BuildContext context, int index) {
-        return CupertinoTabView(
-          builder: (BuildContext context) {
-            return tabs[index];
-          },
-        );
+        return tabs[index];
       },
     );
   }

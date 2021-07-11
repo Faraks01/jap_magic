@@ -13,6 +13,7 @@ import 'package:jap_magic/pages/StartPage.dart';
 import 'package:jap_magic/providers/BrandsProvider.dart';
 import 'package:jap_magic/providers/CategoriesProvider.dart';
 import 'package:jap_magic/providers/FavoriteProductsProvider.dart';
+import 'package:jap_magic/providers/KeyboardStateProvider.dart';
 import 'package:jap_magic/providers/OrderProvider.dart';
 import 'package:jap_magic/providers/ProductLinesProvider.dart';
 import 'package:jap_magic/providers/ProductsProvider.dart';
@@ -53,6 +54,9 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider<UsersProvider>(
           create: (_) => UsersProvider(),
         ),
+        ChangeNotifierProvider<KeyboardStateProvider>(
+          create: (_) => KeyboardStateProvider(),
+        ),
       ],
       child: CupertinoApp(
         title: 'Jap Magic',
@@ -87,7 +91,14 @@ class MyApp extends StatelessWidget {
             primaryColor: Colors.pink[400],
             barBackgroundColor: Colors.black,
             scaffoldBackgroundColor: Colors.grey[200]),
-        home: StartPage(),
+        home: Builder(builder: (ctx) {
+          // Track keyboard on App level
+          final keyboardStatePvd = Provider.of<KeyboardStateProvider>(ctx, listen: false);
+          Future.delayed(Duration.zero, () {
+            keyboardStatePvd.setHeight(MediaQuery.of(ctx).viewInsets.bottom);
+          });
+          return StartPage();
+        }),
         routes: {
           MainPage.routeName: (_) => MainPage(),
           BrandPage.routeName: (ctx) {
