@@ -257,7 +257,7 @@ packages:
       name: flutter_inappwebview
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "4.0.0+4"
+    version: "5.3.2"
   flutter_localizations:
     dependency: "direct main"
     description: flutter
@@ -747,13 +747,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.0.0"
-  uuid:
-    dependency: transitive
-    description:
-      name: uuid
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "2.2.2"
   validate:
     dependency: "direct main"
     description:
@@ -809,7 +802,7 @@ packages:
       name: youtube_player_flutter
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "7.0.0+7"
+    version: "8.0.0"
 sdks:
   dart: ">=2.13.0 <3.0.0"
   flutter: ">=2.0.0"
