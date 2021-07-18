@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:jap_magic/providers/UsersProvider.dart';
 import 'package:jap_magic/themes.dart';
+import 'package:provider/provider.dart';
 import 'package:validate/validate.dart';
 
 class _LoginData {
@@ -16,12 +18,13 @@ class LoginForm extends StatefulWidget {
 class _LoginFormState extends State<LoginForm> {
   final _formKey = GlobalKey<FormState>();
   final _data = _LoginData();
+  UsersProvider _usersPvd;
+  String _errorMsg;
+  bool _loading = false;
 
   String _validatePhoneNumber(value) {
-    try {
-      Validate.isAlphaNumeric(value);
-    } catch (e) {
-      return 'Укажите номер телефона.';
+    if (value.length < 8) {
+      return 'Номер телефона должен быть от 8 символов';
     }
 
     return null;
@@ -35,18 +38,32 @@ class _LoginFormState extends State<LoginForm> {
     return null;
   }
 
-  void submit() {
+  void submit() async {
     if (this._formKey.currentState.validate()) {
       _formKey.currentState.save(); // Save our form now.
 
-      print('Printing the login data.');
-      print('Phone number: ${_data.phoneNumber}');
-      print('Password: ${_data.password}');
+      setState(() {
+        _loading = true;
+      });
+
+      final errorMsg = await _usersPvd.login(phoneNumber: _data.phoneNumber, password: _data.password);
+
+      setState(() {
+        _errorMsg = errorMsg;
+      });
+
+      setState(() {
+        _loading = false;
+      });
     }
   }
 
   @override
   Widget build(BuildContext context) {
+    if (_usersPvd == null) {
+      _usersPvd = Provider.of<UsersProvider>(context, listen: false);
+    }
+
     return Scaffold(
         backgroundColor: Colors.transparent,
         body: Align(
@@ -59,19 +76,7 @@ class _LoginFormState extends State<LoginForm> {
               data: ThemeData(
                   primarySwatch: Colors.purple,
                   accentColor: Colors.white,
-                  inputDecorationTheme: const InputDecorationTheme(
-                    focusedBorder: UnderlineInputBorder(
-                        borderSide: BorderSide(color: Colors.purple)),
-                  ),
-                  elevatedButtonTheme: ElevatedButtonThemeData(
-                    style: ButtonStyle(
-                      backgroundColor: MaterialStateProperty.all<Color>(
-                          Colors.purple), //button color
-                      foregroundColor: MaterialStateProperty.all<Color>(
-                          Colors.white), //text (and icon)
-                    ),
-                  ),
-                  primaryColor: Colors.orangeAccent),
+              ),
               child: Form(
                 key: _formKey,
                 child: Padding(
@@ -107,14 +112,19 @@ class _LoginFormState extends State<LoginForm> {
                         },
                       ),
                       Padding(
-                        padding: const EdgeInsets.only(top: 80),
+                        padding: const EdgeInsets.only(top: 70),
+                        child: Transform.scale(
+                          scale: _errorMsg is String ? 1.0 : 0.0,
+                          child: Text(_errorMsg ?? "", style: TextStyle(color: Colors.red[700])),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 10),
                         child: Container(
                           height: 45,
                           width: double.infinity,
                           child: ElevatedButton(
-                            // style:
-                            //     ElevatedButton.styleFrom(primary: Colors.purple),
-                            onPressed: this.submit,
+                            onPressed: _loading ? null : this.submit,
                             child: Text('Войти',
                                 style: AppButtonTheme.text
                                     .merge(TextStyle(color: Colors.white))),
