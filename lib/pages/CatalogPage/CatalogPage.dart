@@ -4,10 +4,16 @@ import 'package:jap_magic/pages/CatalogPage/BrandsList.dart';
 import 'package:jap_magic/pages/CatalogPage/CategoriesList.dart';
 import 'package:jap_magic/themes.dart';
 
-class CatalogPage extends StatelessWidget {
+class CatalogPage extends StatefulWidget {
   static const routeName = '/catalog-page';
 
+  @override
+  _CatalogPageState createState() => _CatalogPageState();
+}
+
+class _CatalogPageState extends State<CatalogPage> {
   final _pageController = PageController();
+
   final ValueNotifier<int> _currentPage = ValueNotifier<int>(0);
 
   void updateCurrentPage(int value) {
