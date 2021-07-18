@@ -38,7 +38,7 @@ class _UserPageState extends State<UserPage> {
               Selector<UsersProvider, User>(
                 selector: (_, p) => p.mainUser,
                 builder: (context, mainUser, child) {
-                  if (null != null) {
+                  if (mainUser != null) {
                     return AuthorizedContent(
                         handleBackgroundScalingChange: (scaling) {
                           setState(() {
