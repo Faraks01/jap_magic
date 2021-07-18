@@ -33,7 +33,10 @@ class ProductPage extends StatelessWidget with WithPromptDialog {
 
   Widget buildContent(BuildContext context) {
     final nav = Navigator.of(context);
+    final productsPvd = Provider.of<ProductsProvider>(context, listen: false);
     final orderPvd = Provider.of<OrderProvider>(context, listen: false);
+
+    final product = this.product is Product ? this.product : productsPvd.map[id];
 
     final brand =
         Provider.of<BrandsProvider>(context, listen: false).map[product.brand];
