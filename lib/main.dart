@@ -127,9 +127,11 @@ class MyApp extends StatelessWidget {
             final product = Provider.of<ProductsProvider>(ctx, listen: false)
                 .map[routeParams.id];
 
+            final productId = product == null ? routeParams.id : null;
+
             final orderPvd = Provider.of<OrderProvider>(ctx, listen: false);
 
-            if (!orderPvd.map.containsKey(product.id)) {
+            if (!orderPvd.map.containsKey(productId)) {
               if (orderPvd.recentlyViewedProducts.length == 12) {
                 orderPvd.recentlyViewedProducts.removeLast();
               }
@@ -143,7 +145,7 @@ class MyApp extends StatelessWidget {
 
             return ProductPage(
               product: product,
-              id: product == null ? routeParams.id : null,
+              id: productId,
             );
           },
           DeliveryInfoPage.routeName: (ctx) => DeliveryInfoPage(),
