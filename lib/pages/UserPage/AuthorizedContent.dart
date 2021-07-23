@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:jap_magic/pages/FeedbackPage.dart';
+import 'package:jap_magic/pages/RecentlyViewedProductsPage.dart';
 
 import 'LoyaltyCard.dart';
 import 'SlideMenuTab.dart';
@@ -13,6 +15,8 @@ class AuthorizedContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final nav = Navigator.of(context, rootNavigator: true);
+
     return Container(
       height: double.infinity,
       width: double.infinity,
@@ -66,7 +70,9 @@ class AuthorizedContent extends StatelessWidget {
                       SlideMenuTab(
                         icon: CupertinoIcons.eye,
                         text: 'Просмотренные товары',
-                        onTap: () {},
+                        onTap: () {
+                          nav.pushNamed(RecentlyViewedProductsPage.routeName);
+                        },
                       ),
                       SlideMenuTab(
                         icon: CupertinoIcons.play,
@@ -86,7 +92,9 @@ class AuthorizedContent extends StatelessWidget {
                       SlideMenuTab(
                         icon: CupertinoIcons.exclamationmark_bubble,
                         text: 'Обратная связь',
-                        onTap: () {},
+                        onTap: () {
+                          nav.pushNamed(FeedbackPage.routeName);
+                        },
                       ),
                       SlideMenuTab(
                         icon: CupertinoIcons.creditcard,
