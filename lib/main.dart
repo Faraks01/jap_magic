@@ -5,10 +5,12 @@ import 'package:jap_magic/pages/BillingPage.dart';
 import 'package:jap_magic/pages/BrandPage.dart';
 import 'package:jap_magic/pages/CategoryPage.dart';
 import 'package:jap_magic/pages/DeliveryInfoPage.dart';
+import 'package:jap_magic/pages/FeedbackPage.dart';
 import 'package:jap_magic/pages/FeedbacksPage.dart';
 import 'package:jap_magic/pages/MainPage.dart';
 import 'package:jap_magic/pages/OrderPage/OrderPage.dart';
 import 'package:jap_magic/pages/ProductPage.dart';
+import 'package:jap_magic/pages/RecentlyViewedProductsPage.dart';
 import 'package:jap_magic/pages/StartPage.dart';
 import 'package:jap_magic/providers/BrandsProvider.dart';
 import 'package:jap_magic/providers/CategoriesProvider.dart';
@@ -93,7 +95,8 @@ class MyApp extends StatelessWidget {
             scaffoldBackgroundColor: Colors.grey[200]),
         home: Builder(builder: (ctx) {
           // Track keyboard on App level
-          final keyboardStatePvd = Provider.of<KeyboardStateProvider>(ctx, listen: false);
+          final keyboardStatePvd =
+              Provider.of<KeyboardStateProvider>(ctx, listen: false);
           Future.delayed(Duration.zero, () {
             keyboardStatePvd.setHeight(MediaQuery.of(ctx).viewInsets.bottom);
           });
@@ -132,15 +135,17 @@ class MyApp extends StatelessWidget {
             final orderPvd = Provider.of<OrderProvider>(ctx, listen: false);
 
             if (!orderPvd.map.containsKey(productId)) {
-              if (orderPvd.recentlyViewedProducts.length == 12) {
-                orderPvd.recentlyViewedProducts.removeLast();
+              if (!orderPvd.recentlyViewedProducts.contains(product)) {
+                if (orderPvd.recentlyViewedProducts.length == 12) {
+                  orderPvd.recentlyViewedProducts.removeLast();
+                }
+
+                orderPvd.recentlyViewedProducts.add(product);
+
+                Future.delayed(Duration.zero, () {
+                  orderPvd.notifyListeners();
+                });
               }
-
-              orderPvd.recentlyViewedProducts.add(product);
-
-              Future.delayed(Duration.zero, () {
-                orderPvd.notifyListeners();
-              });
             }
 
             return ProductPage(
@@ -159,6 +164,9 @@ class MyApp extends StatelessWidget {
             return FeedbacksPage(product: routeParams.product);
           },
           OrderPage.routeName: (ctx) => OrderPage(),
+          RecentlyViewedProductsPage.routeName: (ctx) =>
+              RecentlyViewedProductsPage(),
+          FeedbackPage.routeName: (ctx) => FeedbackPage(),
         },
       ),
     );
