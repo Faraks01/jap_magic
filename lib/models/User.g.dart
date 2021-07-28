@@ -17,6 +17,10 @@ User _$UserFromJson(Map<String, dynamic> json) {
     hasVerifiedPhone: json['has_verified_phone'] as bool,
     isActive: json['is_active'] as bool,
     phone: json['phone'] as String,
+    addresses: (json['addresses'] as List)
+        ?.map((e) =>
+            e == null ? null : Address.fromJson(e as Map<String, dynamic>))
+        ?.toList(),
   )..name = json['name'] as String;
 }
 
@@ -31,4 +35,5 @@ Map<String, dynamic> _$UserToJson(User instance) => <String, dynamic>{
       'has_verified_phone': instance.hasVerifiedPhone,
       'is_active': instance.isActive,
       'phone': instance.phone,
+      'addresses': instance.addresses,
     };
