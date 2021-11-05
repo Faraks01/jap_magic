@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:jap_magic/pages/FeedbackPage.dart';
 import 'package:jap_magic/pages/RecentlyViewedProductsPage.dart';
+import 'package:jap_magic/pages/UserAddressesPage/UserAddressesPage.dart';
 
 import 'LoyaltyCard.dart';
 import 'SlideMenuTab.dart';
@@ -80,14 +81,11 @@ class AuthorizedContent extends StatelessWidget {
                         onTap: () {},
                       ),
                       SlideMenuTab(
-                        icon: CupertinoIcons.ticket,
-                        text: 'Мои купоны',
-                        onTap: () {},
-                      ),
-                      SlideMenuTab(
                         icon: CupertinoIcons.home,
                         text: 'Мои адреса',
-                        onTap: () {},
+                        onTap: () {
+                          nav.pushNamed(UserAddressesPage.routeName);
+                        }
                       ),
                       SlideMenuTab(
                         icon: CupertinoIcons.exclamationmark_bubble,

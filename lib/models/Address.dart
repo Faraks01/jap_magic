@@ -1,9 +1,11 @@
+import 'package:jap_magic/models/interfaces/BaseModel.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'Address.g.dart';
 
 @JsonSerializable(includeIfNull: true)
-class Address {
+class Address extends BaseModel {
+  final int id;
   final String city;
   final String street;
 
@@ -19,7 +21,7 @@ class Address {
 
   final int porch;
 
-  Address(this.city, this.street, this.streetIndex, this.streetBuilding,
+  Address(this.id, this.city, this.street, this.streetIndex, this.streetBuilding,
       this.apartment, this.floor, this.porch);
 
   factory Address.fromJson(Map<String, dynamic> json) =>

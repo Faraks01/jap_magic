@@ -4,6 +4,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:jap_magic/pages/BillingPage.dart';
 import 'package:jap_magic/pages/BrandPage.dart';
 import 'package:jap_magic/pages/CategoryPage.dart';
+import 'package:jap_magic/pages/AddressFormPage.dart';
 import 'package:jap_magic/pages/DeliveryInfoPage.dart';
 import 'package:jap_magic/pages/FeedbackPage.dart';
 import 'package:jap_magic/pages/FeedbacksPage.dart';
@@ -12,6 +13,7 @@ import 'package:jap_magic/pages/OrderPage/OrderPage.dart';
 import 'package:jap_magic/pages/ProductPage.dart';
 import 'package:jap_magic/pages/RecentlyViewedProductsPage.dart';
 import 'package:jap_magic/pages/StartPage.dart';
+import 'package:jap_magic/pages/UserAddressesPage/UserAddressesPage.dart';
 import 'package:jap_magic/providers/BrandsProvider.dart';
 import 'package:jap_magic/providers/CategoriesProvider.dart';
 import 'package:jap_magic/providers/FavoriteProductsProvider.dart';
@@ -167,6 +169,17 @@ class MyApp extends StatelessWidget {
           RecentlyViewedProductsPage.routeName: (ctx) =>
               RecentlyViewedProductsPage(),
           FeedbackPage.routeName: (ctx) => FeedbackPage(),
+          UserAddressesPage.routeName: (ctx) => UserAddressesPage(),
+          AddressFormPage.routeName: (ctx) {
+            final _routeParams = ModalRoute.of(ctx).settings.arguments;
+
+            if (_routeParams is AddressFormPageRouteArguments) {
+              final AddressFormPageRouteArguments routeParams = _routeParams;
+              return AddressFormPage(address: routeParams.address);
+            } else {
+              return AddressFormPage();
+            }
+          },
         },
       ),
     );

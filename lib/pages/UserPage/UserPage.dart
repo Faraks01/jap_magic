@@ -1,8 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:jap_magic/models/User.dart';
-import 'package:jap_magic/pages/UserPage/LoyaltyCard.dart';
-import 'package:jap_magic/pages/UserPage/SlideMenuTab.dart';
 import 'package:jap_magic/pages/UserPage/UnauthorizedContent.dart';
 import 'package:jap_magic/providers/UsersProvider.dart';
 import 'package:jap_magic/widgets/KeyboardDismissWrapper.dart';
