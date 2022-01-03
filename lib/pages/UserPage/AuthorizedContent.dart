@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:jap_magic/pages/FavoriteProductsPage.dart';
 import 'package:jap_magic/pages/FeedbackPage.dart';
 import 'package:jap_magic/pages/RecentlyViewedProductsPage.dart';
 import 'package:jap_magic/pages/UserAddressesPage/UserAddressesPage.dart';
@@ -66,7 +67,9 @@ class AuthorizedContent extends StatelessWidget {
                       SlideMenuTab(
                         icon: CupertinoIcons.heart,
                         text: 'Избранное',
-                        onTap: () {},
+                        onTap: () {
+                          nav.pushNamed(FavoriteProductsPage.routeName);
+                        },
                       ),
                       SlideMenuTab(
                         icon: CupertinoIcons.eye,

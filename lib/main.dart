@@ -6,6 +6,7 @@ import 'package:jap_magic/pages/BrandPage.dart';
 import 'package:jap_magic/pages/CategoryPage.dart';
 import 'package:jap_magic/pages/AddressFormPage.dart';
 import 'package:jap_magic/pages/DeliveryInfoPage.dart';
+import 'package:jap_magic/pages/FavoriteProductsPage.dart';
 import 'package:jap_magic/pages/FeedbackPage.dart';
 import 'package:jap_magic/pages/FeedbacksPage.dart';
 import 'package:jap_magic/pages/MainPage.dart';
@@ -170,6 +171,7 @@ class MyApp extends StatelessWidget {
               RecentlyViewedProductsPage(),
           FeedbackPage.routeName: (ctx) => FeedbackPage(),
           UserAddressesPage.routeName: (ctx) => UserAddressesPage(),
+          FavoriteProductsPage.routeName: (ctx) => FavoriteProductsPage(),
           AddressFormPage.routeName: (ctx) {
             final _routeParams = ModalRoute.of(ctx).settings.arguments;
 
